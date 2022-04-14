@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hwiVJwcOm/u9TuFvouxNIc4Mb/2Vlby0K+fJEuswZHjg6hH1qfOAIaiRpxuYRSjOA3eUY+RwEe/5ScOeubkObQ==",
+  "dgSpecHash": "a2LXAq0xfvJ/2llxb7FKVPfMMf1HYj53kz2tWDZbOZ1MVEI3tUa+wr3wYuTvs551Vf6aHb2Bh94fw393dN+BxQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kosum\\source\\repos\\Laba4\\Laba4\\Laba4.csproj",
+  "projectFilePath": "C:\\Users\\kosum\\source\\repos\\Laba4\\ProektIdentity\\Laba4\\Laba4.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kosum\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\kosum\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

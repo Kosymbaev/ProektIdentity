@@ -57,18 +57,18 @@ namespace Laba4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                if (result.Succeeded )
                 {
                     var user = await _userManager.FindByNameAsync(model.Email);
                     user.LastLogin = System.DateTime.Now;
                     user.Status = true;
                     await _userManager.UpdateAsync(user);
                     // проверяем, принадлежит ли URL приложению
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && user.Status)
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && model.Status)
                     {
                         return Redirect(model.ReturnUrl);
                     }
