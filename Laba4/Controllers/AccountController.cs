@@ -29,7 +29,7 @@ namespace Laba4.Controllers
             {
                 model.LastLogin = DateTime.Now;
                 model.Register = DateTime.Now;
-                User user = new User { Email = model.Email, UserName = model.Email, LastLogin = model.LastLogin, Name =model.Name, Register = model.Register };
+                User user = new User { Email = model.Email, UserName = model.Email, LastLogin = model.LastLogin, Name =model.Name, Register = model.Register, Status=true};
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -65,10 +65,9 @@ namespace Laba4.Controllers
                 {
                     var user = await _userManager.FindByNameAsync(model.Email);
                     user.LastLogin = System.DateTime.Now;
-                    user.Status = true;
                     await _userManager.UpdateAsync(user);
                     // проверяем, принадлежит ли URL приложению
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && model.Status)
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && model.Status && user.Status)
                     {
                         return Redirect(model.ReturnUrl);
                     }
