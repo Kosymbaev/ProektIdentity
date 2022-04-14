@@ -6,10 +6,19 @@
 @{if(User.Identity.IsAuthenticated)
 {
     <p>@User.Identity.Name</p>
- 
-    <form method="post" asp-controller="Account" asp-action="Logout">
+    <ul>
+    <li><form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
     </form>
+    </li>
+    <li>
+    <form method="post" asp-action="RedirectToUsersTable" asp-controller="Account">
+    <input type="submit" value="Таблица"/>
+    </form>
+    </li>
+    </ul>
+    
+
 }
 else
 {

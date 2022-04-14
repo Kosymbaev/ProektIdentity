@@ -4,7 +4,6 @@ namespace Laba4.ViewModels
 {
     public class LoginViewModel
     {
-        public bool Status { get; set; }
 
         [Required]
         [Display(Name = "Email")]

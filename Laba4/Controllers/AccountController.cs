@@ -29,14 +29,14 @@ namespace Laba4.Controllers
             {
                 model.LastLogin = DateTime.Now;
                 model.Register = DateTime.Now;
-                User user = new User { Email = model.Email, UserName = model.Email, LastLogin = model.LastLogin, Name =model.Name, Register = model.Register, Status=true};
+                User user = new User { Email = model.Email, UserName = model.Email, LastLogin = model.LastLogin, Name = model.Name, Register = model.Register, Status = true };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Users");
                 }
                 else
                 {
@@ -57,17 +57,17 @@ namespace Laba4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid )
+            if (ModelState.IsValid)
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded )
+                if (result.Succeeded && (await _userManager.FindByEmailAsync(model.Email)).Status)
                 {
                     var user = await _userManager.FindByNameAsync(model.Email);
                     user.LastLogin = System.DateTime.Now;
                     await _userManager.UpdateAsync(user);
                     // проверяем, принадлежит ли URL приложению
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl) && model.Status && user.Status)
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
                     }
@@ -78,7 +78,7 @@ namespace Laba4.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", "Неправильный логин и (или) пароль или вы заблокированы");
                 }
             }
             return View(model);
@@ -93,6 +93,11 @@ namespace Laba4.Controllers
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> RedirectToUsersTable()
+        {
+            return RedirectToAction("Index","Users");
         }
     }
 }

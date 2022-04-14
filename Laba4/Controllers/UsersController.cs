@@ -104,9 +104,10 @@ namespace Laba4.Controllers
                 {
                     await _userManager.UpdateAsync(user);
                     await _signinManager.SignOutAsync();
+                    return RedirectToAction("Index", "Home");
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Users");
         }
         [HttpPost]
         public async Task<IActionResult> UnBlock(IFormCollection form)
@@ -121,7 +122,6 @@ namespace Laba4.Controllers
                     {
                         user.Status = true;
                         await _userManager.UpdateAsync(user);
-
                     }
                 }
             }
